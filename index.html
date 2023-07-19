@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dino Game</title>
+  <style>
+    /* 게임 컨테이너를 가운데로 정렬하는 CSS */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #gameContainer {
+      position: relative; /* 스코어를 포함한 컨테이너의 위치를 상대적으로 설정 */
+    }
+    #gameCanvas {
+      border: 2px solid black;
+      margin-top: 30px; /* 캔버스와 스코어 사이의 간격 조정 */
+    }
+    #score {
+      position: absolute; /* 점수를 절대적으로 위치시킴 */
+      top: 0px;
+      left: 20px; /* 스코어를 캔버스 좌측으로 이동 */
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="800" height="300"></canvas>
+    <div id="score">Score: 0</div>
+  </div>
+  <script>
+    // Dino 게임을 생성하는 JavaScript 코드
+    // 캔버스와 컨텍스트 가져오기
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ground 변수
+    let groundY = canvas.height - 25;
+
+    var cow1 = new Image();
+    cow1.src = 'cow.png';
+
+    class Dino {
+      constructor(){
+        this.x = 50;
+        this.y = canvas.height - 75;
+        this.width = 50;
+        this.height = 50;
+        this.speedX = 5;
+        this.isJumping = false;
+        this.jumpingEnd = true;
+        this.jumpCount = 0;
+        this.jumpMaxHeight = 20;
+        this.jumpSpeed = 10;
+      }
+      draw(){
+        ctx.drawImage(cow1,this.x, this.y, this.width, this.height)
+      }
+      draw2(){
+        ctx.drawImage(cow2,this.x, this.y, this.width, this.height)
+      }
+      draw3(){
+        ctx.drawImage(cow3,this.x, this.y, this.width, this.height)
+      }
+    }
+
+    var dino = new Dino
+
+    var cow1 = new Image();
+    cow1.src = 'cow.png';
+    var cow2 = new Image();
+    cow2.src = 'cow2.png'
+    var cow3 = new Image();
+    cow3.src = 'cow3.png'
+
+    function updateScore(score) {
+      const scoreElement = document.getElementById('score');
+      scoreElement.textContent = 'Score: ' + score;
+    }
+
+    var enemy1 = new Image()
+    enemy1.src = 'heart.png'
+
+    class Enemy {
+      constructor(){
+        this.x = canvas.width;
+        this.y = canvas.height - 75;
+        this.width = 50;
+        this.height = 50;
+        this.speedX = 5;
+      }
+      draw(){
+        ctx.drawImage(enemy1,this.x, this.y, this.width, this.height)
+      }
+      
+    }
+
+    var cloud1 = new Image();
+    cloud1.src = 'cloud1.png'
+    var cloud2 = new Image();
+    cloud2.src = 'cloud2.png'
+    var cloud3 = new Image();
+    cloud3.src = 'cloud3.png'
+
+
+    class Cloud {
+      constructor(){
+        this.x = canvas.width;
+        this.y = -70;
+        this.width = 50;
+        this.height = canvas.height;
+        this.speedX = 2;
+      }
+      draw(){
+        ctx.drawImage(cloud1,this.x, this.y, this.width, this.height)
+      }
+      draw2(){
+        ctx.drawImage(cloud2,this.x, this.y, this.width, this.height)
+      }
+      draw3(){
+        ctx.drawImage(cloud3,this.x, this.y, this.width, this.height)
+      }
+      
+    }
+
+    background = new Image()
+    background.src = 'background.png'
+
+    // Ground 그리는 함수
+    function drawGround() {
+      ctx.drawImage(background,0, 0, canvas.width, canvas.height)
+      ctx.fillStyle = 'gray';
+      ctx.fillRect(0, groundY, canvas.width, 25);
+    }
+
+    // 점프 처리 함수
+    function jump() {
+      if (dino.isJumping) {
+        // 점프 중이면 위로 이동
+        dino.jumpCount++;
+        dino.y -= dino.jumpSpeed;
+        if (dino.jumpCount === dino.jumpMaxHeight) {
+          // 최대 높이에 도달하면 다시 내려오도록 설정
+          dino.isJumping = false;
+        }
+      } else {
+        if (dino.y < groundY - dino.height) {
+          // 땅보다 높이에 있으면 계속 내려옴
+          dino.y += dino.jumpSpeed;
+        } else {
+          dino.jumpingEnd = true;
+          // 땅에 닿으면 점프 카운트 초기화
+          dino.jumpCount = 0;
+        }
+      }
+    }
+
+    // 충돌 확인하기
+    function collide(dino, enemy){
+        var x_ = enemy.x - (dino.x + dino.width);
+        var y_ = enemy.y - (dino.y + dino.height);
+        if ( 50 < enemy.x && enemy.x < 100 && y_ < 0){
+            console.log("collide!!")
+            dino.draw3()
+            cancelAnimationFrame(game)
+          }
+      }
+
+  
+    var timer = 0;
+
+    var arr_enemy = []
+
+    var arr_cloud = []
+
+    var game;
+
+    var flag = true;
+
+    var score = 0;
+
+    var collide_checker = false;
+
+    // 게임 루프 함수
+    function gameLoop() {
+      game = requestAnimationFrame(gameLoop);
+
+      
+      // 캔버스 지우기
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Ground 그리기
+      drawGround();
+
+      console.log(score)
+
+      //timer
+      timer++;
+
+      // 디노 그리기
+      if (timer % 10 == 0){
+        if (flag == false){
+          flag = true;
+        }else{
+          flag = false;
+        }
+      }
+
+      if (flag){
+        dino.draw()
+      }else{
+        dino.draw2()
+      }
+
+      // 디노 점프
+      jump()
+      
+      // 장애물 생성
+      if (timer % 50 == 0){
+        var enemy = new Enemy
+        arr_enemy.push(enemy)
+      }
+      
+      // 장애물 이동하기
+      arr_enemy.forEach((a) =>{ 
+        a.x -= 10;
+        a.draw();
+        collide(dino, a)
+        if (a.x < 0){
+          arr_enemy.shift(0)
+          score += 10;
+          updateScore(score)
+        }
+      })
+
+      // 구름 생성
+      if (timer % 60 == 0){
+        var cloud = new Cloud
+        arr_cloud.push(cloud)
+      }
+      
+      console.log(arr_cloud)
+      // 구름 이동하기
+      arr_cloud.forEach((a) =>{ 
+        a.x -= 10;
+        a.draw2();
+        if (a.x < -5){
+          arr_cloud.shift()
+        }
+      })
+
+    }
+
+    // 게임 루프 시작
+    gameLoop();
+
+    // 키보드 이벤트 처리
+    document.addEventListener('keydown', (event) => {
+      if (event.key === ' ') {
+        // 스페이스바 누르면 점프 시작
+        if (!dino.isJumping & dino.jumpingEnd) {
+          dino.isJumping = true;
+          dino.jumpingEnd = false;
+        }
+      }
+      if (event.key == 'f'){
+        isJumping = false;
+        jumpCount = 0;
+        dinoY = groundY - dino.height;
+        arr_enemy = []
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(gameLoop);
+      }
+    });
+  </script>
+</body>
+</html>
