@@ -5,7 +5,6 @@
   <style>
     /* 게임 컨테이너를 가운데로 정렬하는 CSS */
     body {
-      display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -21,7 +20,7 @@
     #score {
       position: absolute; /* 점수를 절대적으로 위치시킴 */
       top: 0px;
-      left: 20px; /* 스코어를 캔버스 좌측으로 이동 */
+      right: 20px; /* 스코어를 캔버스 좌측으로 이동 */
       font-size: 24px;
       font-weight: bold;
       color: black;
@@ -31,8 +30,15 @@
 <body>
   <div id="gameContainer">
     <canvas id="gameCanvas" width="800" height="300"></canvas>
-    <div id="score">Score: 0</div>
+    <div id="score">0</div>
   </div>
+  <br>
+  <div>인터넷 연결 없음</div>
+  <div>다음 방법을 시도해 보세요.</div>
+  <div> - 비행기 모드 사용 중지</div>
+  <div> - 모바일 데이터 또는 Wi-Fi 사용 설정</div>
+  <div> - 현재 지역의 신호 확인</div>
+  <div>ERR_INTERNET_DISCONNECTED</div>
   <script>
     // Dino 게임을 생성하는 JavaScript 코드
     // 캔버스와 컨텍스트 가져오기
@@ -80,7 +86,7 @@
 
     function updateScore(score) {
       const scoreElement = document.getElementById('score');
-      scoreElement.textContent = 'Score: ' + score;
+      scoreElement.textContent = score;
     }
 
     var enemy1 = new Image()
@@ -271,6 +277,8 @@
       if (event.key == 'f'){
         isJumping = false;
         jumpCount = 0;
+        score = 0 
+        updateScore(0)
         dinoY = groundY - dino.height;
         arr_enemy = []
         ctx.clearRect(0, 0, canvas.width, canvas.height);
