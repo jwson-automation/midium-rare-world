@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <title>Dino Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>midium-rare-world</title>
   <style>
     @font-face {
       font-family: DungGeunMo;
@@ -128,7 +129,18 @@
   </script>
 
   <script>
+    document.documentElement.addEventListener('touchend', function (event) {
+     var now = (new Date()).getTime();
+     if (now - lastTouchEnd <= 300) {
+          event.preventDefault(); 
+        } lastTouchEnd = now; 
+    }, false);
+    
     document.addEventListener('touchstart', (event) => {
+      if (event.touches.length > 1) {
+          event.preventDefault(); 
+        } 
+    }, false);
       // 스페이스바 누르면 점프 시작
       if (!dino.isJumping & dino.jumpingEnd) {
         if (restart_flag) {
