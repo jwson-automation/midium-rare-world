@@ -138,10 +138,10 @@
     }, false);
 
     document.addEventListener('touchstart', (event) => {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
-    }, false);
+    //   if (event.touches.length > 1) {
+    //     event.preventDefault();
+    //   }
+    // }, false);
     // 스페이스바 누르면 점프 시작
     if (!dino.isJumping & dino.jumpingEnd) {
       if (restart_flag) {
