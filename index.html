@@ -148,21 +148,20 @@
     }, false);
 
     document.addEventListener('touchstart', (event) => {
-
       if (restart_flag) {
         isJumping = false;
-        jumpCount = 0;
         score = 0
+        speed = 10;
         updateScore(0)
-        dinoY = groundY - dino.height;
         arr_enemy = []
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         requestAnimationFrame(gameLoop);
       } else {
+        // 스페이스바 누르면 점프 시작
         if (!dino.isJumping & dino.jumpingEnd) {
+          jumpSound.play()
           dino.isJumping = true;
           dino.jumpingEnd = false;
-          jumpSound.play()
         }
       }
     })
