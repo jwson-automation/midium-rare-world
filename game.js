@@ -6,6 +6,9 @@ background.src = "src/background.png";
 restartImg = new Image();
 restartImg.src = "src/restart.png";
 
+gameOverImg = new Image();
+gameOverImg.src = "src/gameover.png";
+
 arr_pipe = [];
 
 // 점수 업데이트 함수
@@ -37,24 +40,39 @@ function jump() {
 }
 
 // 충돌 확인하기
-function collide(dino, enemy, restartImg) {
+function collide(dino, enemy, restartImg, gameOverImg) {
   var x_ = enemy.x - (dino.x + dino.width);
   var y_ = enemy.y - (dino.y + dino.height);
   if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
     console.log("collide!!");
-    dino.draw3();
 
-    ctx.drawImage(restartImg, canvas.width / 2 - 50, canvas.height / 2  - 40, 100, 80);
+    restart_flag = true;
+
+    dino.draw3();
+    ctx.drawImage(
+      restartImg,
+      canvas.width / 2 - 50,
+      canvas.height / 2 - 40,
+      100,
+      80
+    );
+    ctx.drawImage(
+      gameOverImg,
+      canvas.width / 2 - 250,
+      canvas.height / 2 - 120,
+      500,
+      85
+    );
 
     cancelAnimationFrame(game);
 
     restart_flag = true;
-
   }
 }
 // 게임 루프 함수
 function gameLoop() {
   game = requestAnimationFrame(gameLoop);
+
 
   restart_flag = false;
 
@@ -62,6 +80,10 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  if (timer % 100 == 0){
+    speed += 1
+  }
 
   if (timer % 10 == 0) {
     var pipe = new Pipe();
@@ -76,11 +98,27 @@ function gameLoop() {
     }
   });
 
-  //timer
+  // 구름 생성
+  if (timer % 45 == 0) {
+    cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
+    var cloud = new Cloud(cloud_height);
+    arr_cloud.push(cloud);
+  }
+
+  // 구름 이동하기
+  arr_cloud.forEach((a) => {
+    a.x -= 10;
+    a.draw();
+    if (a.x < -1000) {
+      arr_cloud.shift();
+    }
+  });
+
   timer++;
 
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   enemy_timer += randomNumber;
+
 
   // 디노 그리기
   if (timer % 10 == 0) {
@@ -90,6 +128,8 @@ function gameLoop() {
       flag = false;
     }
   }
+
+
 
   if (flag) {
     dino.draw();
@@ -105,7 +145,7 @@ function gameLoop() {
   }
 
   // 장애물 생성
-  if (enemy_timer % 80 == 0) {
+  if (enemy_timer % 150 == 0) {
     var type = Math.floor(Math.random() * 6) + 1;
 
     if (type == 1) {
@@ -130,32 +170,22 @@ function gameLoop() {
   }
 
   // Enemy
-  arr_enemy.forEach((a,index) => {
-    a.x -= 10;
+  arr_enemy.forEach((a, index) => {
+    
+    if (a.y == canvas.height - 50){
+      a.x -= 10;
+    }else{
+      a.x -= speed;
+    }
     a.draw(anime);
-    collide(dino, a, restartImg);
-    if (a.x < -1000) {
+    collide(dino, a, restartImg, gameOverImg);
+    if (a.x < -500) {
       arr_enemy.splice(index, 1);
       score += 10;
       updateScore(score);
     }
   });
-
-  // 구름 생성
-  if (timer % 45 == 0) {
-    cloud_height = (Math.floor(Math.random() * 6) + 1)*10;
-    var cloud = new Cloud(cloud_height);
-    arr_cloud.push(cloud);
-  }
-
-  // 구름 이동하기
-  arr_cloud.forEach((a) => {
-    a.x -= 10;
-    a.draw();
-    if (a.x < -1000) {
-      arr_cloud.shift();
-    }
-  });
+  
 }
 
 // 게임 루프 시작

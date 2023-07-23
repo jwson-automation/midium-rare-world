@@ -29,9 +29,9 @@ medicine.src = 'src/medicine.png'
 class Medicine {
     constructor() {
       this.x = canvas.width;
-      this.y = canvas.height - 75;
+      this.y = canvas.height - 125;
       this.width = 50;
-      this.height = 75;
+      this.height = 50;
       this.speedX = 5;
     }
     draw(anime) {
@@ -61,9 +61,9 @@ hall.src = 'src/hall.png'
 class Hall {
     constructor() {
       this.x = canvas.width;
-      this.y = canvas.height - 75;
+      this.y = canvas.height - 50;
       this.width = 50;
-      this.height = 25;
+      this.height = 50;
       this.speedX = 5;
     }
     draw(anime) {

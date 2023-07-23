@@ -62,6 +62,7 @@
     var score = 0;
     var collide_checker = false;
     var anime = 0;
+    var speed = 10;
 
 
   </script>
@@ -72,13 +73,13 @@
       if (!dino.isJumping & dino.jumpingEnd) {
         if (restart_flag) {
           isJumping = false;
-        jumpCount = 0;
-        score = 0
-        updateScore(0)
-        dinoY = groundY - dino.height;
-        arr_enemy = []
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(gameLoop);
+          jumpCount = 0;
+          score = 0
+          updateScore(0)
+          dinoY = groundY - dino.height;
+          arr_enemy = []
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          requestAnimationFrame(gameLoop);
         } else {
           dino.isJumping = true;
           dino.jumpingEnd = false;
@@ -94,20 +95,19 @@
       if (event.key === ' ') {
         if (restart_flag) {
           isJumping = false;
-        jumpCount = 0;
-        score = 0
-        updateScore(0)
-        dinoY = groundY - dino.height;
-        arr_enemy = []
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(gameLoop);
-}   else {
-        // 스페이스바 누르면 점프 시작
-        if (!dino.isJumping & dino.jumpingEnd) {
-          dino.isJumping = true;
-          dino.jumpingEnd = false;
+          score = 0
+          speed = 10;
+          updateScore(0)
+          arr_enemy = []
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          requestAnimationFrame(gameLoop);
+        } else {
+          // 스페이스바 누르면 점프 시작
+          if (!dino.isJumping & dino.jumpingEnd) {
+            dino.isJumping = true;
+            dino.jumpingEnd = false;
+          }
         }
-      }
       }
     });
   </script>
