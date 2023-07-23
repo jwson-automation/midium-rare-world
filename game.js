@@ -42,6 +42,10 @@ function updateHighScore(newScore) {
   document.getElementById("high_score").innerText = formattedScore;
 }
 
+function updateLevel(newLevel){
+  document.getElementById("level").innerText = "lv" + newLevel;
+}
+
 // 점프 처리 함수
 function jump() {
   if (dino.isJumping) {
@@ -150,6 +154,9 @@ function gameLoop() {
   console.log(timer)
 
   if (timer % 500 == 0){
+    level += 1
+    updateLevel(level)
+    victorySound.play()
     speed += 1;
   }
 
@@ -252,11 +259,6 @@ function gameLoop() {
     if (a.x < -500) {
       arr_enemy.splice(index, 1);
       score += 10;
-      cnt += 1;
-      if (cnt == 5) {
-        victorySound.play();
-        cnt = 0;
-      }
     }
   });
 }

@@ -33,7 +33,7 @@
       position: relative;
     }
 
-    #hi {
+    #level {
       font-family: "DungGeunMo", sans-serif;
       font-size: 24px;
       font-weight: bold;
@@ -99,7 +99,7 @@
 <body>
   
   <div id="gameContainer">
-    <div id="hi">Hi</div>
+    <div id="level">Lv0</div>
     <div id="score">0</div>
     <div id="high_score">0</div>
     <canvas id="gameCanvas" width="1000" height="300"></canvas>
@@ -134,6 +134,7 @@
     var arr_pipe = [];
     var originalJumpSpeed = 10;
     var wait_timer = 0;
+    var level = 0
 
     var jumpSound = new Audio('src/sound/jump_sound.mp3');
     var deadSound = new Audio('src/sound/dead_sound.mp3');
@@ -160,8 +161,10 @@
     document.addEventListener('touchstart', (event) => {
       if (restart_flag) {
         isJumping = false;
+        level = 0
         score = 0
         speed = 10;
+        updateLevel(level)
         updateScore(0)
         arr_enemy = []
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -180,9 +183,11 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === ' ') {
         if (restart_flag) {
+          level = 0
           isJumping = false;
           score = 0
           speed = 10;
+          updateLevel(level)
           updateScore(0)
           arr_enemy = []
           ctx.clearRect(0, 0, canvas.width, canvas.height);
