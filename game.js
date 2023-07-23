@@ -130,12 +130,12 @@ function gameLoop() {
   }
 
   // Enemy
-  arr_enemy.forEach((a) => {
+  arr_enemy.forEach((a,index) => {
     a.x -= 10;
     a.draw(anime);
     collide(dino, a, restartImg);
     if (a.x < -1000) {
-      arr_enemy.shift(0);
+      arr_enemy.splice(index, 1);
       score += 10;
       updateScore(score);
     }
