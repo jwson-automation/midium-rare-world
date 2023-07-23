@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Dino Game</title>
   <style>
@@ -10,19 +11,24 @@
       height: 100vh;
       margin: 0;
     }
+
     #gameContainer {
-      position: relative; /* 스코어를 포함한 컨테이너의 위치를 상대적으로 설정 */
+      position: relative;
+      /* 스코어를 포함한 컨테이너의 위치를 상대적으로 설정 */
     }
+
     #score {
       font-size: 18px;
       font-weight: bold;
       color: black;
     }
-    #title{
+
+    #title {
       font-size: 24px;
     }
   </style>
 </head>
+
 <body>
   <div id="gameContainer">
     <div id="score">0</div>
@@ -50,52 +56,67 @@
     var arr_thread = []
     var arr_card = []
     var arr_cloud = []
+    var restart_flag = false;
     var game;
     var flag = true;
     var score = 0;
     var collide_checker = false;
     var anime = 0;
 
-    
+
   </script>
 
   <script>
-   document.addEventListener('touchstart', (event) => {
+    document.addEventListener('touchstart', (event) => {
       // 스페이스바 누르면 점프 시작
       if (!dino.isJumping & dino.jumpingEnd) {
-        dino.isJumping = true;
-        dino.jumpingEnd = false;
+        if (restart_flag) {
+          isJumping = false;
+        jumpCount = 0;
+        score = 0
+        updateScore(0)
+        dinoY = groundY - dino.height;
+        arr_enemy = []
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(gameLoop);
+        } else {
+          dino.isJumping = true;
+          dino.jumpingEnd = false;
+        }
+
       }
     });
   </script>
-  
+
   <script>
     // 키보드 이벤트 처리
-  document.addEventListener('keydown', (event) => {
-    if (event.key === ' ') {
-      // 스페이스바 누르면 점프 시작
-      if (!dino.isJumping & dino.jumpingEnd) {
-        dino.isJumping = true;
-        dino.jumpingEnd = false;
+    document.addEventListener('keydown', (event) => {
+      if (event.key === ' ') {
+        if (restart_flag) {
+          isJumping = false;
+        jumpCount = 0;
+        score = 0
+        updateScore(0)
+        dinoY = groundY - dino.height;
+        arr_enemy = []
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(gameLoop);
+}   else {
+        // 스페이스바 누르면 점프 시작
+        if (!dino.isJumping & dino.jumpingEnd) {
+          dino.isJumping = true;
+          dino.jumpingEnd = false;
+        }
       }
-    }
-    if (event.key == 'f'){
-      isJumping = false;
-      jumpCount = 0;
-      score = 0 
-      updateScore(0)
-      dinoY = groundY - dino.height;
-      arr_enemy = []
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      requestAnimationFrame(gameLoop);
-    }
-  });
+      }
+    });
   </script>
 
-<script src="dino.js"></script>
-<script src="enemy.js"></script>
-<script src="cloud.js"></script>
-<script src="pipe.js"></script>
-<script src="game.js"></script>
+  <script src="dino.js"></script>
+  <script src="enemy.js"></script>
+  <script src="cloud.js"></script>
+  <script src="pipe.js"></script>
+  <script src="game.js"></script>
 </body>
+
 </html>

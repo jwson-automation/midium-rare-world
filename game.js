@@ -48,11 +48,15 @@ function collide(dino, enemy, restartImg) {
 
     cancelAnimationFrame(game);
 
+    restart_flag = true;
+
   }
 }
 // 게임 루프 함수
 function gameLoop() {
   game = requestAnimationFrame(gameLoop);
+
+  restart_flag = false;
 
   // 캔버스 지우기
   ctx.clearRect(0, 0, canvas.width, canvas.height);
