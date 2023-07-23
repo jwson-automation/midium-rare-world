@@ -48,6 +48,11 @@ function jump() {
     // 점프 중이면 위로 이동
     dino.jumpCount++;
     dino.y -= dino.jumpSpeed;
+
+    if (dino.jumpCount === dino.jumpMaxHeight / 2) {
+      dino.jumpSpeed = dino.jumpSpeed / 2;
+    }
+ 
     if (dino.jumpCount === dino.jumpMaxHeight) {
       // 최대 높이에 도달하면 다시 내려오도록 설정
       dino.isJumping = false;
@@ -56,10 +61,17 @@ function jump() {
     if (dino.y < groundY - dino.height) {
       // 땅보다 높이에 있으면 계속 내려옴
       dino.y += dino.jumpSpeed;
+
+      if (dino.jumpingEnd) {
+        dino.jumpSpeed = dino.jumpSpeed * 2;
+        dino.jumpingEnd = false;
+      }
+
     } else {
       dino.jumpingEnd = true;
       // 땅에 닿으면 점프 카운트 초기화
       dino.jumpCount = 0;
+      dino.jumpSpeed = originalJumpSpeed;
     }
   }
 }
@@ -207,7 +219,7 @@ function gameLoop() {
     }
     a.draw(anime);
     collide(dino, a);
-    if (a.x < -200) {
+    if (a.x < -500) {
       arr_enemy.splice(index, 1);
       score += 10;
       cnt += 1;
