@@ -102,6 +102,13 @@
     </div>
   </div>
 
+  <script>
+    // 스크롤 막기
+    document.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    }, { passive: false });
+</script>
+
 
   <script>
     // Dino 게임을 생성하는 JavaScript 코드
