@@ -92,17 +92,17 @@ function collide(dino, enemy, medicine) {
       dino.draw3();
       ctx.drawImage(
         restartImg,
-        canvas.width / 2 - 50,
-        canvas.height / 2 - 40,
-        100,
-        80
+        canvas.width / 2 - 40,
+        canvas.height / 2 + 30,
+        80,
+        40
       );
       ctx.drawImage(
         gameOverImg,
-        canvas.width / 2 - 250,
-        canvas.height / 2 - 120,
-        500,
-        85
+        canvas.width / 2 - 225,
+        canvas.height / 2 - 20,
+        450,
+        42.5
       );
       cancelAnimationFrame(game);
       restart_flag = true;
@@ -114,17 +114,17 @@ function collide(dino, enemy, medicine) {
       dino.draw3();
       ctx.drawImage(
         restartImg,
-        canvas.width / 2 - 50,
-        canvas.height / 2 - 40,
-        100,
-        80
+        canvas.width / 2 - 40,
+        canvas.height / 2 + 30,
+        80,
+        40
       );
       ctx.drawImage(
         gameOverImg,
-        canvas.width / 2 - 250,
-        canvas.height / 2 - 120,
-        500,
-        85
+        canvas.width / 2 - 225,
+        canvas.height / 2 - 20,
+        450,
+        42.5
       );
       cancelAnimationFrame(game);
       restart_flag = true;
