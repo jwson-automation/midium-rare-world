@@ -31,7 +31,7 @@ class Medicine {
       this.x = canvas.width;
       this.y = canvas.height - 75;
       this.width = 50;
-      this.height = 50;
+      this.height = 75;
       this.speedX = 5;
     }
     draw(anime) {
@@ -63,7 +63,7 @@ class Hall {
       this.x = canvas.width;
       this.y = canvas.height - 75;
       this.width = 50;
-      this.height = 50;
+      this.height = 25;
       this.speedX = 5;
     }
     draw(anime) {
