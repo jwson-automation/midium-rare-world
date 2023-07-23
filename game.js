@@ -34,6 +34,14 @@ function updateScore(newScore) {
   document.getElementById("score").innerText = formattedScore;
 }
 
+function updateHighScore(newScore) {
+  if (newScore > high_score) {
+    high_score = newScore;
+  }
+  const formattedScore = formatScore(high_score);
+  document.getElementById("high_score").innerText = formattedScore;
+}
+
 // 점프 처리 함수
 function jump() {
   if (dino.isJumping) {
@@ -95,6 +103,7 @@ function gameLoop() {
   if (timer % 5 == 0) {
     score += 1;
     updateScore(score);
+    updateHighScore(score);
   }
 
   restart_flag = false;
@@ -109,7 +118,7 @@ function gameLoop() {
   }
 
   if (timer % 10 == 0) {
-    var pipe = new Pipe(0 );
+    var pipe = new Pipe(0);
     arr_pipe.push(pipe);
   }
 

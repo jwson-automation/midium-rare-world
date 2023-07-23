@@ -26,15 +26,36 @@
       position: relative;
     }
 
+    #hi{
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      position: absolute;
+      top: 0;
+      right: 150px;
+      margin: 10px;
+
+    }
+
     #score {
       font-size: 24px;
       font-weight: bold;
       color: black;
       position: absolute;
       top: 0;
-      right: 0;
+      right: 80px;
       margin: 10px;
       /* Optional: Add margin for better spacing */
+    }
+
+    #high_score{
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      position: absolute;
+      top: 0;
+      right :10px;
+      margin: 10px;
     }
 
     #title {
@@ -64,7 +85,9 @@
 
 <body>
   <div id="gameContainer">
+    <div id="hi">Hi</div>
     <div id="score">0</div>
+    <div id="high_score">0</div>
     <canvas id="gameCanvas" width="1000" height="300"></canvas>
     <div id="title">인터넷 연결 없음</div>
     <div id="description">
@@ -92,6 +115,7 @@
     var game;
     var flag = true;
     var score = 0;
+    var high_score = "00000";
     var anime = 0;
     var speed = 10;
     var cnt = 0;
