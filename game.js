@@ -187,7 +187,7 @@ function gameLoop() {
 
   // 구름 이동하기
   arr_cloud.forEach((a) => {
-    a.x -= 10;
+    a.x -= 1;
     a.draw();
     if (a.x < -1000) {
       arr_cloud.shift();
