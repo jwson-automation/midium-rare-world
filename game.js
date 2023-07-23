@@ -222,7 +222,7 @@ function gameLoop() {
   }
 
   // 장애물 생성
-  if (enemy_timer % 80 == 0 && wait_timer > 50 - level * 5) {
+  if (enemy_timer % 80 == 0 && wait_timer > 50 - level * 2) {
     wait_timer = 0
     var type = Math.floor(Math.random() * 6) + 1;
 
