@@ -52,7 +52,7 @@ function jump() {
     if (dino.jumpCount === dino.jumpMaxHeight / 2) {
       dino.jumpSpeed = dino.jumpSpeed / 2;
     }
- 
+
     if (dino.jumpCount === dino.jumpMaxHeight) {
       // 최대 높이에 도달하면 다시 내려오도록 설정
       dino.isJumping = false;
@@ -66,7 +66,6 @@ function jump() {
         dino.jumpSpeed = dino.jumpSpeed * 2;
         dino.jumpingEnd = false;
       }
-
     } else {
       dino.jumpingEnd = true;
       // 땅에 닿으면 점프 카운트 초기화
@@ -80,35 +79,58 @@ function jump() {
 function collide(dino, enemy, medicine) {
   var x_ = enemy.x - (dino.x + dino.width);
   var y_ = enemy.y - (dino.y + dino.height);
-  if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
-    console.log("collide!!");
 
-    
-    deadSound.play();
-
-    dino.draw3();
-    ctx.drawImage(
-      restartImg,
-      canvas.width / 2 - 50,
-      canvas.height / 2 - 40,
-      100,
-      80
-    );
-    ctx.drawImage(
-      gameOverImg,
-      canvas.width / 2 - 250,
-      canvas.height / 2 - 120,
-      500,
-      85
-    );
-
-    cancelAnimationFrame(game);
-    restart_flag = true;
+  if (medicine == canvas.height - 150) {
+    console.log(y_)
+    if (50 < enemy.x && enemy.x < 100 && y_ < 0 && y_ > -50) {
+      console.log("collide!!");
+      deadSound.play();
+      dino.draw3();
+      ctx.drawImage(
+        restartImg,
+        canvas.width / 2 - 50,
+        canvas.height / 2 - 40,
+        100,
+        80
+      );
+      ctx.drawImage(
+        gameOverImg,
+        canvas.width / 2 - 250,
+        canvas.height / 2 - 120,
+        500,
+        85
+      );
+      cancelAnimationFrame(game);
+      restart_flag = true;
+    }
+  } else {
+    if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
+      console.log("collide!!");
+      deadSound.play();
+      dino.draw3();
+      ctx.drawImage(
+        restartImg,
+        canvas.width / 2 - 50,
+        canvas.height / 2 - 40,
+        100,
+        80
+      );
+      ctx.drawImage(
+        gameOverImg,
+        canvas.width / 2 - 250,
+        canvas.height / 2 - 120,
+        500,
+        85
+      );
+      cancelAnimationFrame(game);
+      restart_flag = true;
+    }
   }
 }
 
 // 게임 루프 함수
 function gameLoop() {
+  // console.log(dino.x, dino.y)
   game = requestAnimationFrame(gameLoop);
 
   if (timer % 5 == 0) {
@@ -123,8 +145,16 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  wait_timer += 1
 
-  if (timer % 100 == 0) {
+  console.log(timer)
+
+  if (timer % 500 == 0){
+    speed += 1;
+  }
+
+  if (timer % 100 == 0 ) {
+    
     speed += 0.1;
   }
 
@@ -185,7 +215,8 @@ function gameLoop() {
   }
 
   // 장애물 생성
-  if (enemy_timer % 80 == 0) {
+  if (enemy_timer % 80 == 0 && wait_timer > 50) {
+    wait_timer = 0
     var type = Math.floor(Math.random() * 6) + 1;
 
     if (type == 1) {
@@ -217,7 +248,7 @@ function gameLoop() {
       a.x -= speed;
     }
     a.draw(anime);
-    collide(dino, a);
+    collide(dino, a, a.y);
     if (a.x < -500) {
       arr_enemy.splice(index, 1);
       score += 10;
