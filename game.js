@@ -52,7 +52,7 @@ function jump() {
     if (dino.jumpCount === dino.jumpMaxHeight / 2) {
       dino.jumpSpeed = dino.jumpSpeed / 2;
     }
- 
+
     if (dino.jumpCount === dino.jumpMaxHeight) {
       // 최대 높이에 도달하면 다시 내려오도록 설정
       dino.isJumping = false;
@@ -66,7 +66,6 @@ function jump() {
         dino.jumpSpeed = dino.jumpSpeed * 2;
         dino.jumpingEnd = false;
       }
-
     } else {
       dino.jumpingEnd = true;
       // 땅에 닿으면 점프 카운트 초기화
@@ -83,7 +82,6 @@ function collide(dino, enemy) {
   if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
     console.log("collide!!");
 
-    
     deadSound.play();
 
     dino.draw3();
@@ -103,7 +101,9 @@ function collide(dino, enemy) {
     );
 
     cancelAnimationFrame(game);
-    restart_flag = true;
+    setTimeout(function () {
+      restart_flag = true;
+    }, 2000);
   }
 }
 

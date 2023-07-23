@@ -131,41 +131,6 @@
 
   </script>
 
-
-  <script>
-    let longPressTimer;
-
-    // 롱프레스를 시작하는 함수
-    function startLongPress() {
-      longPressTimer = setTimeout(function () {
-        // 여기에 롱프레스 이벤트를 처리할 코드를 작성합니다.
-        isJumping = false;
-        score = 0
-        speed = 10;
-        updateScore(0)
-        arr_enemy = []
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(gameLoop);
-        console.log("롱프레스가 감지되었습니다.");
-      }, 500); // 여기에서 500은 롱프레스를 인식하는 시간 (밀리초)입니다. 필요에 따라 조절할 수 있습니다.
-    }
-
-    // 롱프레스를 멈추는 함수
-    function stopLongPress() {
-      clearTimeout(longPressTimer);
-    }
-
-    // 터치 시작 이벤트 리스너
-    document.addEventListener('touchstart', function (event) {
-      startLongPress();
-    });
-
-    // 터치 종료 이벤트 리스너
-    document.addEventListener('touchend', function (event) {
-      stopLongPress();
-    });
-  </script>
-
   <script>
     // 스크롤 막기
     document.addEventListener('touchmove', function (event) {
