@@ -7,9 +7,9 @@ cloud.src = 'src/cloud1.png';
 
 
 class Cloud {
-    constructor(){
+    constructor(cloud_height){
       this.x = canvas.width;
-      this.y = 0;
+      this.y = cloud_height;
       this.width = 100;
       this.height = 50;
       this.speedX = 2;
