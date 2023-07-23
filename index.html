@@ -6,42 +6,66 @@
   <style>
     /* 게임 컨테이너를 가운데로 정렬하는 CSS */
     body {
+      display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding: 8px;
+      overflow: hidden;
     }
 
     #gameContainer {
+      text-align: center;
       position: relative;
-      /* 스코어를 포함한 컨테이너의 위치를 상대적으로 설정 */
     }
 
     #score {
       font-size: 18px;
       font-weight: bold;
       color: black;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 10px; /* Optional: Add margin for better spacing */
     }
 
     #title {
+      text-align: left;
       font-size: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
+
+    #description {
+      text-align: left;
+    }
+
+    #sub-title{
+      font-size: 18px;
+    }
+    #description li{
+      margin-left: 20px;
+    }
+
+    
   </style>
-
-
 </head>
 
 <body>
   <div id="gameContainer">
     <div id="score">0</div>
     <canvas id="gameCanvas" width="800" height="300"></canvas>
+    <div id="title">인터넷 연결 없음</div>
+    <div id="description">
+      <div id="sub-title">다음 방법을 시도해 보세요.</div>
+        <li>비행기 모드 사용 중지</li>
+        <li>모바일 데이터 또는 Wi-Fi 사용 설정</li>
+        <li>현재 지역의 신호 확인</li>
+      <h5>ERR_INTERNET_DISCONNECTED</h5>
+    </div>
   </div>
-  <div id="title">인터넷 연결 없음</div>
-  <div>다음 방법을 시도해 보세요.</div>
-  <div> - 비행기 모드 사용 중지</div>
-  <div> - 모바일 데이터 또는 Wi-Fi 사용 설정</div>
-  <div> - 현재 지역의 신호 확인</div>
-  <div>ERR_INTERNET_DISCONNECTED</div>
+
 
 
   <script>

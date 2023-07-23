@@ -11,10 +11,18 @@ gameOverImg.src = "src/gameover.png";
 
 arr_pipe = [];
 
+function formatScore(score) {
+  const scoreString = score.toString();
+  const leadingZeros = "00000";
+  const formattedScore = leadingZeros.substring(0, leadingZeros.length - scoreString.length) + scoreString;
+  return formattedScore;
+}
+
 // 점수 업데이트 함수
-function updateScore(score) {
-  const scoreElement = document.getElementById("score");
-  scoreElement.textContent = score;
+function updateScore(newScore) {
+  score = newScore;
+  const formattedScore = formatScore(score); // Use the formatScore function to get the formatted score
+  document.getElementById("score").innerText = formattedScore;
 }
 
 // 점프 처리 함수
@@ -73,6 +81,11 @@ function collide(dino, enemy) {
 // 게임 루프 함수
 function gameLoop() {
   game = requestAnimationFrame(gameLoop);
+
+  if (timer % 5 == 0){
+  score += 1
+  updateScore(score);
+  }
 
 
   restart_flag = false;
@@ -183,7 +196,6 @@ function gameLoop() {
     if (a.x < -200) {
       arr_enemy.splice(index, 1);
       score += 10;
-      updateScore(score);
       cnt += 1
       if (cnt == 5){
         victorySound.play()
