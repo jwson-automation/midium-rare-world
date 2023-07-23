@@ -8,6 +8,7 @@
       font-family: DungGeunMo;
       src: url(src/font/DungGeunMo.ttf);
     }
+
     /* 게임 컨테이너를 가운데로 정렬하는 CSS */
     body {
       font-family: "DungGeunMo", sans-serif;
@@ -32,7 +33,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      margin: 10px; /* Optional: Add margin for better spacing */
+      margin: 10px;
+      /* Optional: Add margin for better spacing */
     }
 
     #title {
@@ -46,17 +48,17 @@
       text-align: left;
     }
 
-    #sub-title{
+    #sub-title {
       font-size: 18px;
     }
-    #description li{
+
+    #description li {
       margin-left: 20px;
     }
+
     #error {
       margin-top: 10px;
     }
-
-    
   </style>
 </head>
 
@@ -67,9 +69,9 @@
     <div id="title">인터넷 연결 없음</div>
     <div id="description">
       <div id="sub-title">다음 방법을 시도해 보세요.</div>
-        <li>네트워크 케이블, 모뎀, 라우터 확인</li>
-        <li>Wi-Fi에 다시 연결</li>
-        <li>Windows 네트워크 진단 프로그램 실행</li>
+      <li>네트워크 케이블, 모뎀, 라우터 확인</li>
+      <li>Wi-Fi에 다시 연결</li>
+      <li>Windows 네트워크 진단 프로그램 실행</li>
       <div id="error">ERR_INTERNET_DISCONNECTED</div>
     </div>
   </div>
@@ -93,10 +95,13 @@
     var anime = 0;
     var speed = 10;
     var cnt = 0;
+    var  arr_pipe = [];
 
     var jumpSound = new Audio('src/sound/jump_sound.mp3');
     var deadSound = new Audio('src/sound/dead_sound.mp3');
     var victorySound = new Audio('src/sound/victory_sound.mp3');
+
+    
 
   </script>
 

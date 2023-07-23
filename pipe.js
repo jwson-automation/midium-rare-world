@@ -5,9 +5,11 @@ _pipe = new Image()
 _pipe.src = 'src/pipe.png'
 
 
+
+
 class Pipe {
-    constructor(){
-      this.x = canvas.width;
+    constructor(x){
+      this.x = canvas.width - x;
       this.y = canvas.height - 25 ;
       this.width = 100;
       this.height = 50;

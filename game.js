@@ -8,13 +8,22 @@ restartImg.src = "src/restart.png";
 
 var gameOverImg = new Image();
 gameOverImg.src = "src/gameover.png";
+var before_pip;
 
-arr_pipe = [];
+tmp = 10;
+for (let index = 0; index < 10; index++) {
+  var before_pipe = new Pipe(tmp);
+  tmp += 100;
+  arr_pipe.push(before_pipe);
+  console.log(arr_pipe);
+}
 
 function formatScore(score) {
   const scoreString = score.toString();
   const leadingZeros = "00000";
-  const formattedScore = leadingZeros.substring(0, leadingZeros.length - scoreString.length) + scoreString;
+  const formattedScore =
+    leadingZeros.substring(0, leadingZeros.length - scoreString.length) +
+    scoreString;
   return formattedScore;
 }
 
@@ -55,7 +64,7 @@ function collide(dino, enemy) {
     console.log("collide!!");
 
     restart_flag = true;
-    deadSound.play()
+    deadSound.play();
 
     dino.draw3();
     ctx.drawImage(
@@ -78,15 +87,15 @@ function collide(dino, enemy) {
     restart_flag = true;
   }
 }
+
 // 게임 루프 함수
 function gameLoop() {
   game = requestAnimationFrame(gameLoop);
 
-  if (timer % 5 == 0){
-  score += 1
-  updateScore(score);
+  if (timer % 5 == 0) {
+    score += 1;
+    updateScore(score);
   }
-
 
   restart_flag = false;
 
@@ -95,12 +104,12 @@ function gameLoop() {
 
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-  if (timer % 100 == 0){
-    speed += 1
+  if (timer % 100 == 0) {
+    speed += 1;
   }
 
   if (timer % 10 == 0) {
-    var pipe = new Pipe();
+    var pipe = new Pipe(0 );
     arr_pipe.push(pipe);
   }
 
@@ -133,7 +142,6 @@ function gameLoop() {
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   enemy_timer += randomNumber;
 
-
   // 디노 그리기
   if (timer % 10 == 0) {
     if (flag == false) {
@@ -142,8 +150,6 @@ function gameLoop() {
       flag = false;
     }
   }
-
-
 
   if (flag) {
     dino.draw();
@@ -185,10 +191,9 @@ function gameLoop() {
 
   // Enemy
   arr_enemy.forEach((a, index) => {
-    
-    if (a.speedC == false){
+    if (a.speedC == false) {
       a.x -= 10;
-    }else{
+    } else {
       a.x -= speed;
     }
     a.draw(anime);
@@ -196,14 +201,13 @@ function gameLoop() {
     if (a.x < -200) {
       arr_enemy.splice(index, 1);
       score += 10;
-      cnt += 1
-      if (cnt == 5){
-        victorySound.play()
-        cnt = 0
+      cnt += 1;
+      if (cnt == 5) {
+        victorySound.play();
+        cnt = 0;
       }
     }
   });
-  
 }
 
 // 게임 루프 시작
