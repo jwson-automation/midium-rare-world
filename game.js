@@ -77,7 +77,7 @@ function jump() {
 }
 
 // 충돌 확인하기
-function collide(dino, enemy) {
+function collide(dino, enemy, medicine) {
   var x_ = enemy.x - (dino.x + dino.width);
   var y_ = enemy.y - (dino.y + dino.height);
   if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
@@ -125,7 +125,7 @@ function gameLoop() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
   if (timer % 100 == 0) {
-    speed += 1;
+    speed += 0.1;
   }
 
   if (timer % 10 == 0) {

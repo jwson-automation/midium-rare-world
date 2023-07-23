@@ -11,9 +11,14 @@
       src: url(src/font/DungGeunMo.ttf);
     }
 
+    @font-face {
+      font-family: Pretendard-Black;
+      src: url(src/font/Pretendard-Black.ttf);
+    }
+
     /* 게임 컨테이너를 가운데로 정렬하는 CSS */
     body {
-      font-family: "DungGeunMo", sans-serif;
+      font-family: "Pretendard-Black", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,6 +34,7 @@
     }
 
     #hi {
+      font-family: "DungGeunMo", sans-serif;
       font-size: 24px;
       font-weight: bold;
       color: black;
@@ -40,6 +46,7 @@
     }
 
     #score {
+      font-family: "DungGeunMo", sans-serif;
       font-size: 24px;
       font-weight: bold;
       color: black;
@@ -51,6 +58,7 @@
     }
 
     #high_score {
+      font-family: "DungGeunMo", sans-serif;
       font-size: 24px;
       font-weight: bold;
       color: black;
@@ -89,6 +97,7 @@
 </head>
 
 <body>
+  
   <div id="gameContainer">
     <div id="hi">Hi</div>
     <div id="score">0</div>
@@ -165,6 +174,7 @@
         }
       }
     })
+
     // 키보드 이벤트 처리
     document.addEventListener('keydown', (event) => {
       if (event.key === ' ') {

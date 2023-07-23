@@ -31,7 +31,7 @@ class Medicine {
   constructor() {
     this.speedC = true;
     this.x = canvas.width;
-    this.y = canvas.height - 125;
+    this.y = canvas.height - 150;
     this.width = 50;
     this.height = 50;
     this.speedX = 5;
