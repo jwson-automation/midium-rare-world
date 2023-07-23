@@ -146,7 +146,7 @@ function gameLoop() {
   }
 
   // 장애물 생성
-  if (enemy_timer % 150 == 0) {
+  if (enemy_timer % 80 == 0) {
     var type = Math.floor(Math.random() * 6) + 1;
 
     if (type == 1) {
