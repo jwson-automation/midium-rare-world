@@ -131,24 +131,5 @@ function updateScore(score) {
   // 게임 루프 시작
   gameLoop();
 
-  // 키보드 이벤트 처리
-  document.addEventListener('keydown', (event) => {
-    if (event.key === ' ') {
-      // 스페이스바 누르면 점프 시작
-      if (!dino.isJumping & dino.jumpingEnd) {
-        dino.isJumping = true;
-        dino.jumpingEnd = false;
-      }
-    }
-    if (event.key == 'f'){
-      isJumping = false;
-      jumpCount = 0;
-      score = 0 
-      updateScore(0)
-      dinoY = groundY - dino.height;
-      arr_enemy = []
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      requestAnimationFrame(gameLoop);
-    }
-  });
+  
   
