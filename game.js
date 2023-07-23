@@ -1,12 +1,12 @@
 // 게임 루프 및 기타 함수들을 따로 분리한 파일
 
-background = new Image();
+var background = new Image();
 background.src = "src/background.png";
 
-restartImg = new Image();
+var restartImg = new Image();
 restartImg.src = "src/restart.png";
 
-gameOverImg = new Image();
+var gameOverImg = new Image();
 gameOverImg.src = "src/gameover.png";
 
 arr_pipe = [];
@@ -40,13 +40,14 @@ function jump() {
 }
 
 // 충돌 확인하기
-function collide(dino, enemy, restartImg, gameOverImg) {
+function collide(dino, enemy) {
   var x_ = enemy.x - (dino.x + dino.width);
   var y_ = enemy.y - (dino.y + dino.height);
   if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
     console.log("collide!!");
 
     restart_flag = true;
+    deadSound.play()
 
     dino.draw3();
     ctx.drawImage(
@@ -178,11 +179,16 @@ function gameLoop() {
       a.x -= speed;
     }
     a.draw(anime);
-    collide(dino, a, restartImg, gameOverImg);
-    if (a.x < -500) {
+    collide(dino, a);
+    if (a.x < -200) {
       arr_enemy.splice(index, 1);
       score += 10;
       updateScore(score);
+      cnt += 1
+      if (cnt == 5){
+        victorySound.play()
+        cnt = 0
+      }
     }
   });
   
