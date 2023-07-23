@@ -3,7 +3,7 @@
 
   
 var cloud = new Image();
-cloud.src = 'cloud1.png';
+cloud.src = 'src/cloud1.png';
 
 
 class Cloud {

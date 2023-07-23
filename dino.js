@@ -3,11 +3,11 @@
 let groundY = canvas.height - 25;
 
     var cow1 = new Image();
-    cow1.src = 'cow.png';
+    cow1.src = 'src/cow.png';
     var cow2 = new Image();
-    cow2.src = 'cow2.png'
+    cow2.src = 'src/cow2.png'
     var cow3 = new Image();
-    cow3.src = 'cow3.png'
+    cow3.src = 'src/cow3.png'
 
 
 class Dino {

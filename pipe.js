@@ -2,7 +2,7 @@
 
 
 _pipe = new Image()
-_pipe.src = 'pipe.png'
+_pipe.src = 'src/pipe.png'
 
 
 class Pipe {

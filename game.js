@@ -1,7 +1,7 @@
 // 게임 루프 및 기타 함수들을 따로 분리한 파일
 
   background = new Image()
-  background.src = 'background.png'
+  background.src = 'src/background.png'
 
   arr_pipe = []
 
@@ -74,6 +74,11 @@ function updateScore(score) {
     //timer
     timer++;
 
+    const randomNumber = Math.floor(Math.random() * 3) + 1;
+    enemy_timer += randomNumber;
+
+    console.log(enemy_timer)
+
     // 디노 그리기
     if (timer % 10 == 0){
       if (flag == false){
@@ -91,17 +96,21 @@ function updateScore(score) {
 
     // 디노 점프
     jump()
+
+    if (timer % 20 == 0) {
+      anime += 1
+    }
     
     // 장애물 생성
-    if (timer % 50 == 0){
-      var enemy = new Enemy
+    if (enemy_timer % 80 == 0){
+      var enemy = new Heart
       arr_enemy.push(enemy)
     }
     
-    // 장애물 이동하기
+    // Enemy
     arr_enemy.forEach((a) =>{ 
       a.x -= 10;
-      a.draw();
+      a.draw(anime);
       collide(dino, a)
       if (a.x < -1000){
         arr_enemy.shift(0)
@@ -130,6 +139,3 @@ function updateScore(score) {
 
   // 게임 루프 시작
   gameLoop();
-
-  
-  
