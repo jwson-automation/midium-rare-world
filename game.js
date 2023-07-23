@@ -172,7 +172,7 @@ function gameLoop() {
   // Enemy
   arr_enemy.forEach((a, index) => {
     
-    if (a.y == canvas.height - 50){
+    if (a.speedC == false){
       a.x -= 10;
     }else{
       a.x -= speed;
