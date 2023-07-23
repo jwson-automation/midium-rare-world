@@ -103,8 +103,6 @@ function collide(dino, enemy) {
     );
 
     cancelAnimationFrame(game);
-
-    restart_flag = true;
   }
 }
 
