@@ -4,8 +4,13 @@
 <head>
   <title>Dino Game</title>
   <style>
+    @font-face {
+      font-family: DungGeunMo;
+      src: url(src/font/DungGeunMo.ttf);
+    }
     /* 게임 컨테이너를 가운데로 정렬하는 CSS */
     body {
+      font-family: "DungGeunMo", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,7 +26,7 @@
     }
 
     #score {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: bold;
       color: black;
       position: absolute;
@@ -47,6 +52,9 @@
     #description li{
       margin-left: 20px;
     }
+    #error {
+      margin-top: 10px;
+    }
 
     
   </style>
@@ -59,10 +67,10 @@
     <div id="title">인터넷 연결 없음</div>
     <div id="description">
       <div id="sub-title">다음 방법을 시도해 보세요.</div>
-        <li>비행기 모드 사용 중지</li>
-        <li>모바일 데이터 또는 Wi-Fi 사용 설정</li>
-        <li>현재 지역의 신호 확인</li>
-      <h5>ERR_INTERNET_DISCONNECTED</h5>
+        <li>네트워크 케이블, 모뎀, 라우터 확인</li>
+        <li>Wi-Fi에 다시 연결</li>
+        <li>Windows 네트워크 진단 프로그램 실행</li>
+      <div id="error">ERR_INTERNET_DISCONNECTED</div>
     </div>
   </div>
 
