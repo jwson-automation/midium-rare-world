@@ -83,7 +83,7 @@ function collide(dino, enemy) {
   if (50 < enemy.x && enemy.x < 100 && y_ < 0) {
     console.log("collide!!");
 
-    restart_flag = true;
+    
     deadSound.play();
 
     dino.draw3();
@@ -103,6 +103,7 @@ function collide(dino, enemy) {
     );
 
     cancelAnimationFrame(game);
+    restart_flag = true;
   }
 }
 
