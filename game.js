@@ -115,14 +115,14 @@ function gameLoop() {
       var medicine = new Medicine();
       arr_enemy.push(medicine);
     } else if (type == 3) {
-      // var thread = new Thread();
-      // arr_enemy.push(thread);
+      var thread = new Thread();
+      arr_enemy.push(thread);
     } else if (type == 4) {
       var hall = new Hall();
       arr_enemy.push(hall);
     } else if (type == 5) {
-      // var box = new Box();
-      // arr_enemy.push(box);
+      var box = new Box();
+      arr_enemy.push(box);
     } else if (type == 6) {
       var card = new Card();
       arr_enemy.push(card);

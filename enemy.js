@@ -40,7 +40,7 @@ class Medicine {
   }
 
 var thread = new Image();
-thread.src = 'src/thread.png'
+thread.src = 'src/pic_thread.png'
 
 class Thread {
     constructor() {
@@ -72,7 +72,7 @@ class Hall {
   }
 
 var box = new Image();
-box.src = 'src/box.png'
+box.src = 'src/pic_box.png'
 
 class Box {
     constructor() {
