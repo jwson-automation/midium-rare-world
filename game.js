@@ -69,15 +69,12 @@ function updateScore(score) {
       }
     })
 
-    console.log(score)
-
     //timer
     timer++;
 
     const randomNumber = Math.floor(Math.random() * 3) + 1;
     enemy_timer += randomNumber;
 
-    console.log(enemy_timer)
 
     // 디노 그리기
     if (timer % 10 == 0){
@@ -103,8 +100,29 @@ function updateScore(score) {
     
     // 장애물 생성
     if (enemy_timer % 80 == 0){
-      var enemy = new Heart
-      arr_enemy.push(enemy)
+      var type = Math.floor(Math.random() * 6) + 1
+      
+      console.log(type)
+      if (type == 1){
+        var heart = new Heart
+        arr_enemy.push(heart)
+      }else if(type == 2){
+        var medicine = new Medicine
+        arr_enemy.push(medicine)
+      }else if (type == 3){
+        var thread = new Thread
+        arr_enemy.push(thread)
+      }else if (type == 4){
+        var hall = new Hall
+        arr_enemy.push(hall)
+      }else if (type == 5){
+        var box = new Box
+        arr_enemy.push(box)
+      }else if (type == 6){
+        var card = new Card
+        arr_enemy.push(card)
+      }
+     
     }
     
     // Enemy
@@ -125,7 +143,6 @@ function updateScore(score) {
       arr_cloud.push(cloud)
     }
     
-    console.log(arr_cloud)
     // 구름 이동하기
     arr_cloud.forEach((a) =>{ 
       a.x -= 10;
