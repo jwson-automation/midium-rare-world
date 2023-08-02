@@ -168,8 +168,6 @@ function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-  timer += 1
-
   arr_pipe.forEach((a) => {
     a.x -= 10;
     a.draw();
