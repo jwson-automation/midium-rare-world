@@ -142,144 +142,144 @@ function collide(dino, enemy, medicine) {
 
 var game_speed = 0;
 var levelup_score = 0;
-
+var update_timer = 0;
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
   game_speed += 1;
-  timer += 1;
+  update_timer += 1;
 
-  score += 1;
-  levelup_score += 1;
-  updateScore(score);
-  updateHighScore(score);
+  if (update_timer > 8) {
+    update_timer = 0;
 
-  console.log(levelup_score);
+    score += 1;
+    levelup_score += 1;
+    updateScore(score);
+    updateHighScore(score);
 
-  if (levelup_score > 100) {
-    level += 1;
-    levelup_score = 0;
-    updateLevel(level);
-    victorySound.play();
-    if (level > 7) {
-      speed += 1;
-    } else {
-      speed += 1 * level;
+    console.log(levelup_score);
+
+    if (levelup_score > 100) {
+      level += 1;
+      levelup_score = 0;
+      updateLevel(level);
+      victorySound.play();
+      if (level > 7) {
+        speed += 1;
+      } else {
+        speed += 1 * level;
+      }
     }
-  }
 
-  var pipe = new Pipe(0);
-  arr_pipe.push(pipe);
+    var pipe = new Pipe(0);
+    arr_pipe.push(pipe);
 
-  // 구름 생성
-  if (Math.floor(score) % 5 == 0) {
-    cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
-    var cloud = new Cloud(cloud_height);
-    arr_cloud.push(cloud);
+    // 구름 생성
+    if (Math.floor(score) % 5 == 0) {
+      cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
+      var cloud = new Cloud(cloud_height);
+      arr_cloud.push(cloud);
+    }
   }
 }
 
+var draw_timer = 0;
 // 게임 캔버스에 그리기 함수
 function drawGame(timestamp) {
-  const elapsed2 = timestamp - lastTimestamp2;
+  lastTimestamp2 = timestamp;
+  draw_timer += 1;
 
-  if (elapsed2 >= millisecondsPerUpdate / 10) {
-    lastTimestamp2 = timestamp;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-
-    arr_pipe.forEach((a) => {
-      a.x -= 10;
-      a.draw();
-      if (a.x < -1000) {
-        arr_pipe.shift(0);
-      }
-    });
-
-    // 구름 이동하기
-    arr_cloud.forEach((a) => {
-      a.x -= 1;
-      a.draw();
-      if (a.x < -1000) {
-        arr_cloud.shift();
-      }
-    });
-
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    enemy_timer += randomNumber;
-    wait_timer += 1;
-
-    // 디노 그리기
-    if (timer % 10 == 0) {
-      if (flag == false) {
-        flag = true;
-      } else {
-        flag = false;
-      }
-    }
-
-    if (flag) {
-      dino.draw();
+  // 디노 그리기
+  if (draw_timer > 8) {
+    draw_timer = 0;
+    if (flag == false) {
+      flag = true;
     } else {
-      dino.draw2();
+      flag = false;
     }
-
-    // 디노 점프
-    jump();
-
-    if (timer % 20 == 0) {
-      anime += 1;
-    }
-
-    // 장애물 생성
-
-    bindo = 20;
-
-    if (level > 2) {
-      bindo = 40;
-    }
-
-    if (enemy_timer % bindo == 0 && wait_timer > 80) {
-      wait_timer = 0;
-      var type = Math.floor(Math.random() * 6) + 1;
-
-      if (type == 1) {
-        var heart = new Heart();
-        arr_enemy.push(heart);
-      } else if (type == 2) {
-        var medicine = new Medicine();
-        arr_enemy.push(medicine);
-      } else if (type == 3) {
-        var thread = new Thread();
-        arr_enemy.push(thread);
-      } else if (type == 4) {
-        var hall = new Hall();
-        arr_enemy.push(hall);
-      } else if (type == 5) {
-        var box = new Box();
-        arr_enemy.push(box);
-      } else if (type == 6) {
-        var card = new Card();
-        arr_enemy.push(card);
-      }
-    }
-
-    // Enemy
-    arr_enemy.forEach((a, index) => {
-      if (a.speedC == false) {
-        a.x -= 10;
-      } else {
-        a.x -= speed;
-      }
-      a.draw(anime);
-      collide(dino, a, a.y);
-      if (a.x < -500) {
-        arr_enemy.splice(index, 1);
-        score += 10;
-        levelup_score += 10;
-      }
-    });
+    anime += 1;
   }
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  arr_pipe.forEach((a) => {
+    a.x -= 10;
+    a.draw();
+    if (a.x < -1000) {
+      arr_pipe.shift(0);
+    }
+  });
+
+  // 구름 이동하기
+  arr_cloud.forEach((a) => {
+    a.x -= 1;
+    a.draw();
+    if (a.x < -1000) {
+      arr_cloud.shift();
+    }
+  });
+
+  const randomNumber = Math.floor(Math.random() * 3) + 1;
+  enemy_timer += randomNumber;
+  wait_timer += 1;
+
+  if (flag) {
+    dino.draw();
+  } else {
+    dino.draw2();
+  }
+
+  // 디노 점프
+  jump();
+
+  // 장애물 생성
+
+  bindo = 20;
+
+  if (level > 2) {
+    bindo = 40;
+  }
+
+  if (enemy_timer % bindo == 0 && wait_timer > 80) {
+    wait_timer = 0;
+    var type = Math.floor(Math.random() * 6) + 1;
+
+    if (type == 1) {
+      var heart = new Heart();
+      arr_enemy.push(heart);
+    } else if (type == 2) {
+      var medicine = new Medicine();
+      arr_enemy.push(medicine);
+    } else if (type == 3) {
+      var thread = new Thread();
+      arr_enemy.push(thread);
+    } else if (type == 4) {
+      var hall = new Hall();
+      arr_enemy.push(hall);
+    } else if (type == 5) {
+      var box = new Box();
+      arr_enemy.push(box);
+    } else if (type == 6) {
+      var card = new Card();
+      arr_enemy.push(card);
+    }
+  }
+
+  // Enemy
+  arr_enemy.forEach((a, index) => {
+    if (a.speedC == false) {
+      a.x -= 10;
+    } else {
+      a.x -= speed;
+    }
+    a.draw(anime);
+    collide(dino, a, a.y);
+    if (a.x < -500) {
+      arr_enemy.splice(index, 1);
+      score += 10;
+      levelup_score += 10;
+    }
+  });
 }
 
 // 게임 루프 함수
