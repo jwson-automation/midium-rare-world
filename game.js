@@ -10,9 +10,15 @@ var gameOverImg = new Image();
 gameOverImg.src = "src/gameover.png";
 var before_pip;
 
+const targetFPS = 60;
+const timePerFrame = 1000 / targetFPS;
+
 let lastTimestamp = 0;
 let lastTimestamp2 = 0;
 const millisecondsPerUpdate = 1000 / 8; // 60 FPS (1초에 60 프레임)
+
+let updateCounter = 0;
+let drawCounter = 0;
 
 tmp = 10;
 for (let index = 0; index < 10; index++) {
@@ -139,41 +145,36 @@ var levelup_score = 0;
 
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
-  const elapsed = timestamp - lastTimestamp;
   game_speed += 1;
   timer += 1;
 
-  if (elapsed >= millisecondsPerUpdate) {
-    lastTimestamp = timestamp;
+  score += 1;
+  levelup_score += 1;
+  updateScore(score);
+  updateHighScore(score);
 
-    score += 1;
-    levelup_score += 1;
-    updateScore(score);
-    updateHighScore(score);
+  console.log(levelup_score);
 
-    console.log(levelup_score);
-
-    if (levelup_score > 100) {
-      level += 1;
-      levelup_score = 0;
-      updateLevel(level);
-      victorySound.play();
-      if (level > 7) {
-        speed += 1;
-      } else {
-        speed += 1 * level;
-      }
+  if (levelup_score > 100) {
+    level += 1;
+    levelup_score = 0;
+    updateLevel(level);
+    victorySound.play();
+    if (level > 7) {
+      speed += 1;
+    } else {
+      speed += 1 * level;
     }
+  }
 
-    var pipe = new Pipe(0);
-    arr_pipe.push(pipe);
+  var pipe = new Pipe(0);
+  arr_pipe.push(pipe);
 
-    // 구름 생성
-    if (Math.floor(score) % 5 == 0) {
-      cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
-      var cloud = new Cloud(cloud_height);
-      arr_cloud.push(cloud);
-    }
+  // 구름 생성
+  if (Math.floor(score) % 5 == 0) {
+    cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
+    var cloud = new Cloud(cloud_height);
+    arr_cloud.push(cloud);
   }
 }
 
@@ -284,8 +285,24 @@ function drawGame(timestamp) {
 // 게임 루프 함수
 function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
-  updateGame(timestamp);
-  drawGame(timestamp);
+
+  const currentTime = performance.now();
+  const elapsed = currentTime - lastTimestamp;
+  lastTimestamp = currentTime;
+
+  updateCounter += elapsed;
+  while (updateCounter >= timePerFrame) {
+    console.log("cur", currentTime);
+    updateGame(currentTime); // Call the update function with the current time
+    updateCounter -= timePerFrame;
+  }
+
+  drawCounter += elapsed;
+  if (drawCounter >= timePerFrame) {
+    console.log("draw", drawCounter);
+    drawGame(currentTime); // Call the draw function with the current time
+    drawCounter -= timePerFrame;
+  }
 }
 
 // 게임 루프 시작
