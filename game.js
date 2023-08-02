@@ -133,6 +133,8 @@ function collide(dino, enemy, medicine) {
   }
 }
 
+tmp2 = 0
+
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
   const elapsed = timestamp - lastTimestamp;
@@ -144,7 +146,7 @@ function updateGame(timestamp) {
     updateScore(score);
     updateHighScore(score);
 
-    if (score % 500 == 0) {
+    if (score % 100 == 0) {
       level += 1;
       updateLevel(level);
       victorySound.play();
@@ -155,11 +157,15 @@ function updateGame(timestamp) {
     arr_pipe.push(pipe);
 
     // 구름 생성
-    if ((score + Math.floor(Math.random() * 3)) % 5 == 0) {
-      cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
-      var cloud = new Cloud(cloud_height);
-      arr_cloud.push(cloud);
-    }
+    tmp2 += 1
+    if (tmp2 % 5 == 0) {
+    cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
+    var cloud = new Cloud(cloud_height);
+    arr_cloud.push(cloud);
+  }
+
+    // 게임 캔버스에 그리기
+    drawGame();
   }
 }
 
@@ -176,6 +182,8 @@ function drawGame() {
     }
   });
 
+  
+
   // 구름 이동하기
   arr_cloud.forEach((a) => {
     a.x -= 1;
@@ -184,13 +192,13 @@ function drawGame() {
       arr_cloud.shift();
     }
   });
- 
+
   const randomNumber = Math.floor(Math.random() * 3) + 1;
   enemy_timer += randomNumber;
   wait_timer += 1;
 
   // 디노 그리기
-  if (timer % 10 == 0) {
+  if (score % 2 == 0) {
     if (flag == false) {
       flag = true;
     } else {
@@ -258,7 +266,6 @@ function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
   updateGame(timestamp);
   drawGame();
-
 }
 
 // 게임 루프 시작
