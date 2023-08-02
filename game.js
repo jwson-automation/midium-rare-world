@@ -11,7 +11,7 @@ gameOverImg.src = "src/gameover.png";
 var before_pip;
 
 let lastTimestamp = 0;
-const millisecondsPerUpdate = 1000 / 8; // 60 FPS (1초에 60 프레임)
+const millisecondsPerUpdate = 1000 / 60; // 60 FPS (1초에 60 프레임)
 
 tmp = 10;
 for (let index = 0; index < 10; index++) {
@@ -265,7 +265,7 @@ function drawGame() {
 function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
   updateGame(timestamp);
-  drawGame();
+  // drawGame();
 }
 
 // 게임 루프 시작
