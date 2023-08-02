@@ -21,16 +21,15 @@
       letter-spacing: 4px;
       font-family: "Pretendard-Black", sans-serif;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column; /* 수직 정렬을 위해 flex-direction을 column으로 설정 */
+      align-items: center; /* 가운데 정렬을 유지하면서, 수직 정렬은 상단 정렬로 변경 */
       height: 100vh;
-      margin: 0;
+      margin: 100px 0 0 0; /* 상단 마진을 200px로 설정 */
       padding: 12px;
       overflow: hidden;
       font-size: 20px;
       color: grey;
       line-height: 3;
-
     }
 
     #gameContainer {

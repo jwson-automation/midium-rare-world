@@ -18,6 +18,9 @@ class Pipe {
     draw(){
       ctx.drawImage(_pipe,this.x, this.y, this.width, this.height);
     }
+    update(deltaTime){
+      this.x -= this.speedX * deltaTime;
+    }
   }
   
   var pipe = new Pipe();
