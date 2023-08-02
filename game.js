@@ -11,7 +11,7 @@ gameOverImg.src = "src/gameover.png";
 var before_pip;
 
 let lastTimestamp = 0;
-const millisecondsPerUpdate = 1000 / 8; // 60 FPS (1초에 60 프레임)
+const millisecondsPerUpdate = 1000 / 80; // 60 FPS (1초에 60 프레임)
 
 tmp = 10;
 for (let index = 0; index < 10; index++) {
@@ -31,8 +31,8 @@ function formatScore(score) {
 
 // 점수 업데이트 함수
 function updateScore(newScore) {
-  score = newScore;
-  const formattedScore = formatScore(score);
+  tmp_score = newScore;
+  const formattedScore = formatScore(tmp_score);
   document.getElementById("score").innerText = formattedScore;
 }
 
@@ -141,9 +141,9 @@ function updateGame(timestamp) {
   if (elapsed >= millisecondsPerUpdate) {
     lastTimestamp = timestamp;
 
-    score += 1;
-    updateScore(score);
-    updateHighScore(score);
+    score += 0.1;
+    updateScore(Math.floor(score));
+    updateHighScore(Math.floor(score));
 
     if (score % 100 == 0) {
       level += 1;
@@ -264,7 +264,7 @@ function drawGame() {
 function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
   updateGame(timestamp);
-  drawGame();
+  // drawGame();
 }
 
 // 게임 루프 시작
