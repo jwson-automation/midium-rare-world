@@ -30,11 +30,10 @@
       font-size: 20px;
       color: grey;
       line-height: 3;
-    
+
     }
 
     #gameContainer {
-      transform: translateY(-250px);
       text-align: center;
       position: relative;
     }
@@ -106,7 +105,7 @@
 </head>
 
 <body>
-  
+
   <div id="gameContainer">
     <div id="level">Lv0</div>
     <div id="score">0</div>
@@ -144,6 +143,8 @@
     var originalJumpSpeed = 10;
     var wait_timer = 0;
     var level = 0
+    var lastTime = 0; // 마지막 프레임의 시간
+    var deltaTime = 0; // 두 프레임 사이의 시간 간격 (초단위)
 
     var jumpSound = new Audio('src/sound/jump_sound.mp3');
     var deadSound = new Audio('src/sound/dead_sound.mp3');
@@ -173,6 +174,7 @@
         level = 0
         score = 0
         speed = 10;
+        var lastTime = 0;
         updateLevel(level)
         updateScore(0)
         arr_enemy = []
@@ -196,6 +198,7 @@
           isJumping = false;
           score = 0
           speed = 10;
+          var lastTime = 0;
           updateLevel(level)
           updateScore(0)
           arr_enemy = []
