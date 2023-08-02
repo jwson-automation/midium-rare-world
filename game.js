@@ -134,7 +134,8 @@ function collide(dino, enemy, medicine) {
   }
 }
 
-game_speed = 0;
+var game_speed = 0;
+var levelup_score = 0;
 
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
@@ -142,23 +143,26 @@ function updateGame(timestamp) {
   game_speed += 1;
   timer += 1;
 
-  console.log(elapsed >= millisecondsPerUpdate)
-
   if (elapsed >= millisecondsPerUpdate) {
     lastTimestamp = timestamp;
 
     score += 1;
-    console.log(score)
+    levelup_score += 1;
     updateScore(score);
     updateHighScore(score);
 
-    console.log(score);
+    console.log(levelup_score);
 
-    if (score % 100 == 0) {
+    if (levelup_score > 100) {
       level += 1;
+      levelup_score = 0;
       updateLevel(level);
       victorySound.play();
-      speed += 1;
+      if (level > 7) {
+        speed += 1;
+      } else {
+        speed += 1 * level;
+      }
     }
 
     var pipe = new Pipe(0);
@@ -227,7 +231,14 @@ function drawGame(timestamp) {
     }
 
     // 장애물 생성
-    if (enemy_timer % 80 == 0 && wait_timer > 80) {
+
+    bindo = 20;
+
+    if (level > 2) {
+      bindo = 40;
+    }
+
+    if (enemy_timer % bindo == 0 && wait_timer > 80) {
       wait_timer = 0;
       var type = Math.floor(Math.random() * 6) + 1;
 
@@ -264,6 +275,7 @@ function drawGame(timestamp) {
       if (a.x < -500) {
         arr_enemy.splice(index, 1);
         score += 10;
+        levelup_score += 10;
       }
     });
   }
