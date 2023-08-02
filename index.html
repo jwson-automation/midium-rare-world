@@ -21,10 +21,13 @@
       letter-spacing: 4px;
       font-family: "Pretendard-Black", sans-serif;
       display: flex;
-      flex-direction: column; /* 수직 정렬을 위해 flex-direction을 column으로 설정 */
-      align-items: center; /* 가운데 정렬을 유지하면서, 수직 정렬은 상단 정렬로 변경 */
+      flex-direction: column;
+      /* 수직 정렬을 위해 flex-direction을 column으로 설정 */
+      align-items: center;
+      /* 가운데 정렬을 유지하면서, 수직 정렬은 상단 정렬로 변경 */
       height: 100vh;
-      margin: 100px 0 0 0; /* 상단 마진을 200px로 설정 */
+      margin: 100px 0 0 0;
+      /* 상단 마진을 200px로 설정 */
       padding: 12px;
       overflow: hidden;
       font-size: 20px;
@@ -110,7 +113,7 @@
     <div id="score">0</div>
     <div id="high_score">0</div>
     <canvas id="gameCanvas" width="1000" height="300"></canvas>
-    <div id="title">인터넷 연결 없음 V1.1</div>
+    <div id="title">인터넷 연결 없음 V1.2</div>
     <div id="description">
       <div id="sub-title">다음 방법을 시도해 보세요.</div>
       <li>네트워크 케이블, 모뎀, 라우터 확인</li>
@@ -145,9 +148,15 @@
     var lastTime = 0; // 마지막 프레임의 시간
     var deltaTime = 0; // 두 프레임 사이의 시간 간격 (초단위)
 
+    var game_speed = 0;
+    var levelup_score = 0;
+    var update_timer = 0;
     var jumpSound = new Audio('src/sound/jump_sound.mp3');
     var deadSound = new Audio('src/sound/dead_sound.mp3');
     var victorySound = new Audio('src/sound/victory_sound.mp3');
+
+    var currentTime = performance.now();
+    var elapsed = currentTime - lastTimestamp;
 
   </script>
 
@@ -175,10 +184,20 @@
         level = 0
         score = 0
         speed = 10;
-        var lastTime = 0;
+        game_speed = 0;
+        levelup_score = 0;
+        update_timer = 0;
+        lastTime = 0;
+        lastTimestamp = performance.now();
         updateLevel(level)
         updateScore(0)
         arr_enemy = []
+        tmp = 0;
+        for (let index = 0; index < 10; index++) {
+          var before_pipe = new Pipe(tmp);
+          tmp += 100;
+          arr_pipe.push(before_pipe);
+        }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         restart_flag = false;
         requestAnimationFrame(gameLoop);
@@ -200,10 +219,20 @@
           isJumping = false;
           score = 0
           speed = 10;
+          game_speed = 0;
+          levelup_score = 0;
+          update_timer = 0;
           var lastTime = 0;
+          lastTimestamp = performance.now();
           updateLevel(level)
           updateScore(0)
           arr_enemy = []
+          tmp = 0;
+          for (let index = 0; index < 10; index++) {
+            var before_pipe = new Pipe(tmp);
+            tmp += 100;
+            arr_pipe.push(before_pipe);
+          }
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           restart_flag = false;
           requestAnimationFrame(gameLoop);

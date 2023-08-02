@@ -140,11 +140,8 @@ function collide(dino, enemy, medicine) {
   }
 }
 
-var game_speed = 0;
-var levelup_score = 0;
-var update_timer = 0;
 // 게임 상태 업데이트 함수
-function updateGame(timestamp) {
+function updateGame() {
   game_speed += 1;
   update_timer += 1;
 
@@ -174,6 +171,7 @@ function updateGame(timestamp) {
     arr_pipe.push(pipe);
 
     // 구름 생성
+    
     if (Math.floor(score) % 5 == 0) {
       cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
       var cloud = new Cloud(cloud_height);
@@ -184,8 +182,7 @@ function updateGame(timestamp) {
 
 var draw_timer = 0;
 // 게임 캔버스에 그리기 함수
-function drawGame(timestamp) {
-  lastTimestamp2 = timestamp;
+function drawGame() {
   draw_timer += 1;
 
   // 디노 그리기
@@ -205,7 +202,7 @@ function drawGame(timestamp) {
   arr_pipe.forEach((a) => {
     a.x -= 10;
     a.draw();
-    if (a.x < -1000) {
+    if (a.x < -1500) {
       arr_pipe.shift(0);
     }
   });
@@ -274,7 +271,7 @@ function drawGame(timestamp) {
     }
     a.draw(anime);
     collide(dino, a, a.y);
-    if (a.x < -500) {
+    if (a.x < -1000) {
       arr_enemy.splice(index, 1);
       score += 10;
       levelup_score += 10;
@@ -283,24 +280,21 @@ function drawGame(timestamp) {
 }
 
 // 게임 루프 함수
-function gameLoop(timestamp) {
+function gameLoop() {
   game = requestAnimationFrame(gameLoop);
 
-  const currentTime = performance.now();
-  const elapsed = currentTime - lastTimestamp;
+  currentTime = performance.now();
+  elapsed = currentTime - lastTimestamp;
   lastTimestamp = currentTime;
-
   updateCounter += elapsed;
   while (updateCounter >= timePerFrame) {
-    console.log("cur", currentTime);
-    updateGame(currentTime); // Call the update function with the current time
+    updateGame(); // Call the update function with the current time
     updateCounter -= timePerFrame;
   }
 
   drawCounter += elapsed;
   if (drawCounter >= timePerFrame) {
-    console.log("draw", drawCounter);
-    drawGame(currentTime); // Call the draw function with the current time
+    drawGame(); // Call the draw function with the current time
     drawCounter -= timePerFrame;
   }
 }
