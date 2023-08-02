@@ -133,9 +133,12 @@ function collide(dino, enemy, medicine) {
   }
 }
 
+game_speed = 0
+
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
   const elapsed = timestamp - lastTimestamp;
+  game_speed += 1
   timer += 1
 
   if (elapsed >= millisecondsPerUpdate) {
@@ -156,15 +159,16 @@ function updateGame(timestamp) {
     arr_pipe.push(pipe);
 
     // 구름 생성
-    tmp += 1 
-  if (tmp % 5 == 0) {
+  if (Math.floor(score) % 5 == 0) {
     cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
     var cloud = new Cloud(cloud_height);
     arr_cloud.push(cloud);
   }
 
     // 게임 캔버스에 그리기
+    if (game_speed % 2 == 0){
     drawGame();
+  }
   }
 }
 
@@ -179,9 +183,7 @@ function drawGame() {
     if (a.x < -1000) {
       arr_pipe.shift(0);
     }
-  });
-
-  
+  });  
 
   // 구름 이동하기
   arr_cloud.forEach((a) => {
@@ -264,7 +266,6 @@ function drawGame() {
 function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
   updateGame(timestamp);
-  // drawGame();
 }
 
 // 게임 루프 시작
