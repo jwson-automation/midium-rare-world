@@ -11,7 +11,7 @@ gameOverImg.src = "src/gameover.png";
 var before_pip;
 
 let lastTimestamp = 0;
-const millisecondsPerUpdate = 1000 / 60; // 60 FPS (1초에 60 프레임)
+const millisecondsPerUpdate = 1000 / 8; // 60 FPS (1초에 60 프레임)
 
 tmp = 10;
 for (let index = 0; index < 10; index++) {
@@ -133,11 +133,10 @@ function collide(dino, enemy, medicine) {
   }
 }
 
-tmp2 = 0
-
 // 게임 상태 업데이트 함수
 function updateGame(timestamp) {
   const elapsed = timestamp - lastTimestamp;
+  timer += 1
 
   if (elapsed >= millisecondsPerUpdate) {
     lastTimestamp = timestamp;
@@ -157,8 +156,8 @@ function updateGame(timestamp) {
     arr_pipe.push(pipe);
 
     // 구름 생성
-    tmp2 += 1
-    if (tmp2 % 5 == 0) {
+    tmp += 1 
+  if (tmp % 5 == 0) {
     cloud_height = (Math.floor(Math.random() * 6) + 1) * 10;
     var cloud = new Cloud(cloud_height);
     arr_cloud.push(cloud);
@@ -198,7 +197,7 @@ function drawGame() {
   wait_timer += 1;
 
   // 디노 그리기
-  if (score % 2 == 0) {
+  if (timer % 10 == 0) {
     if (flag == false) {
       flag = true;
     } else {
@@ -265,7 +264,7 @@ function drawGame() {
 function gameLoop(timestamp) {
   game = requestAnimationFrame(gameLoop);
   updateGame(timestamp);
-  // drawGame();
+  drawGame();
 }
 
 // 게임 루프 시작
