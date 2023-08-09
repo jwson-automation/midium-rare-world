@@ -1,6 +1,7 @@
 # midium-rare-world
 
-https://midium-rare-world.xyz/
+Event : https://archivist.kr/show/show_scroll.php?idx=1691407765
+Game : https://midium-rare-world.xyz/
 
 ## Description
 ```
